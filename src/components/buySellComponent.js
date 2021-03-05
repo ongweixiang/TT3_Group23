@@ -54,7 +54,7 @@ export default class BuySellComponent extends Component {
         this.onChangeAmount = this.onChangeAmount.bind(this);
 
         this.state = {
-            transactionType: "SELL",
+            transactionType: "BUY",
             amount: 0,
             currentPrice: 0,
             assetSymbol: "",
@@ -62,8 +62,14 @@ export default class BuySellComponent extends Component {
             successful: false,
             currentCashBalance: 0,
             currentAssetBalance: 0,
-            message: ""
+            message: "",
+            accountKey: ""
         };
+        
+        this.setState({
+            accountKey: (JSON.parse(localStorage.getItem("login_JSON")).accountKey),
+        });
+        console.log("$$$$: ", (JSON.parse(localStorage.getItem("login_JSON")).accountKey))
         ApiService.currentPricingOfAsset()
             .then((response) => response.json())
             .then((response) => {
@@ -80,7 +86,7 @@ export default class BuySellComponent extends Component {
                 });
 
             })
-        ApiService.userBalance("f4481c86-1a64-49a7-b85c-3d4449eabf69")
+        ApiService.userBalance((JSON.parse(localStorage.getItem("login_JSON")).accountKey))
             .then((response) => response.json())
             .then((response) => {
                 this.setState({
@@ -114,16 +120,16 @@ export default class BuySellComponent extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             console.log("%%%%%")
             try {
-                ApiService.buyOrSell("f4481c86-1a64-49a7-b85c-3d4449eabf69", this.state.transactionType, this.state.amount)
-                    .then((response) => response.json(), error => { })
+                ApiService.buyOrSell((JSON.parse(localStorage.getItem("login_JSON")).accountKey), this.state.transactionType, this.state.amount)
+                    .then((response) => response.json())
                     .then((response) => {
                         if(response.ok) {
                         console.log("Successful Transaction: ", response)
                         this.setState({
-                            transactionType: "SELL",
+                            transactionType: "BUY",
                             amount: 0,
                         });
-                        ApiService.userBalance("f4481c86-1a64-49a7-b85c-3d4449eabf69")
+                        ApiService.userBalance((JSON.parse(localStorage.getItem("login_JSON")).accountKey))
                             .then((response) => response.json())
                             .then((response) => {
                                 this.setState({

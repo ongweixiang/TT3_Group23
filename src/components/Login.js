@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { Link, Router } from "react-router-dom";
 import DBSLogo from "./Logo_Only.png";
 import { isEmail } from "validator";
-import AuthService from "./Services";
+import ApiService from "../services/apiServices";
 
 const required = (value) => {
   if (!value) {
@@ -36,23 +36,27 @@ const Login = (props) => {
     setPassword(password);
   };
 
-  const handleLogin =(e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    this.setState({
-      message: "",
-      loading: true
-    });
+    setMessage("");
+    setLoading(true);
+    form.current.validateAll();
 
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.history.push("/profile");
+    if (checkBtn.current.context._errors.length === 0) {
+      ApiService.login(username, password)
+      .then((response)=> {
+        response.json().then((response)=>{
+          console.log(response);
+          localStorage.setItem("login_JSON",JSON.stringify(response))
+        })
+      })
+      .then(
+        () => {  
+          props.history.push("/profile");
           window.location.reload();
         },
-        error => {
+        (error) => {
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -60,32 +64,14 @@ const Login = (props) => {
             error.message ||
             error.toString();
 
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
+          setLoading(false);
+          setMessage(resMessage);
         }
       );
     } else {
-      this.setState({
-        loading: false
-      });
+      setLoading(false);
     }
-  }
-    /*
-    if (username === data.username && password === data.password) {
-      props.history.push("/profile");
-      window.location.reload();
-    } else {
-      props.history.push("/wrong");
-      window.location.reload();
-      return;
-    }
-    */
-    // console.log(username);
-    // console.log(password);
-    // console.log(data.username);
-    // console.log(data.password);
+  };
   
 
   return (

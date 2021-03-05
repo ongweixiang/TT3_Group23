@@ -1,56 +1,58 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { Component } from "react";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import { isEmail } from "validator";
 
-function Profile(props) {
-  const loginStyle = {
-    color: "black",
-    textDecoration: "none",
-  };
+import ApiService from "../services/apiServices";
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export default class Profile extends Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
+    this.state = {
+      accountKey: " ",
+      address: " ",
+      email: " ",
+      firstName: " ",
+      lastName: " ",
+      nric: " ",
+      phoneNumber: " ",
+      username: " ",
+    };
 
-  const fetchItems = async () => {
-    const data = await fetch(
-      "https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/login?",
-      {
-        method: "POST",
-        headers: {
-          "x-api-key": "dgkCTGTaXm7HYZNgyizLY4ocEVSO7G3c54QcYSIu",
-        },
-        body: JSON.stringify({
-          username: "Group23",
-          password: "M4suvRLLksbz4rG",
-        }),
-      }
+    ApiService.login(
+      props.location.state.username,
+      props.location.state.password
     )
       .then((response) => response.json())
       .then((response) => {
-        return (
-          <div>
-            <h1>Profile Page</h1>
-          </div>
-        );
-        console.log(response);
-        console.log(response.nric);
-        console.log(response.firstName);
-        console.log(response.lastName);
+        // console.log("*********", response);
+        this.setState({
+          firstName: response.firstName,
+          lastName: response.lastName,
+          address: response.address,
+          email: response.email,
+          phoneNumber: response.phoneNumber,
+        });
       });
-  };
+  }
 
-  //   const getUserInformation = () => {
-  //     const username = props.location.state.username;
-  //     const password = props.location.state.password;
-  //   };
-
-  return (
-    <div>
-      <h1>Profile Page</h1>
-    </div>
-  );
+  render() {
+    return (
+      <div className="col-md-12">
+        <div className="welcomemessage">
+          <h1>
+            Welcome {this.state.firstName} {this.state.lastName}
+          </h1>
+        </div>
+        <div className="profile_page">
+          <h2>Personal Information</h2>
+          <h4>Phone Number Registered: {this.state.phoneNumber}</h4>
+          <h4>Address: {this.state.address}</h4>
+          <h4>Email: {this.state.email}</h4>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default Profile;

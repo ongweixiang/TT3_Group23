@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import wrongInput from "./components/wrongInput";
 import Profile from "./components/Profile";
 import ItemDetail from "./components/itemDetail";
+import BuySell from "./components/buySellComponent"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/wrong" component={wrongInput} />
           <Route path="/profile" component={Profile} />
+          <Route path="/buySell" component={BuySell} />
         </Switch>
       </div>
     </Router>

@@ -23,6 +23,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/wrong" component={wrongInput} />
           <Route path="/profile" component={Profile} />
+          {/* hello */}
         </Switch>
       </div>
     </Router>

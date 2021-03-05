@@ -9,6 +9,7 @@ import wrongInput from "./components/wrongInput";
 import Profile from "./components/Profile";
 import ItemDetail from "./components/itemDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Transactions from "./components/transactions";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/wrong" component={wrongInput} />
           <Route path="/profile" component={Profile} />
-          {/* hello */}
+          <Route path="/transactions" component={Transactions} />
         </Switch>
       </div>
     </Router>

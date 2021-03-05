@@ -1,0 +1,118 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  background-image: url("HomeBackground1.jpg");
+}
+
+.card-card-container {
+  background-color: white;
+  width: 10cm;
+  height: 10cm;
+  border-radius: 10px;
+  margin-left: 40%;
+  margin-top: 0%;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(255, 254, 254);
+  color: rgb(46, 46, 46);
+  margin: 0;
+}
+
+.nav-links {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.label {
+  color: black;
+  padding: 8px;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+.profile-img-card {
+  /* background: white; */
+  margin: 5%;
+}
+
+.col-md-12 {
+  margin-top: 10%;
+  justify-content: center;
+}
+
+.loginBackground {
+  border: 0;
+  background: rgb(255, 0, 0);
+  margin: 0%;
+  box-shadow: none;
+  border-radius: 5px;
+  width: 2.5cm;
+  height: 1.5cm;
+  justify-content: space-around;
+  align-items: center;
+  /* font-weight: normal; */
+}
+
+.topBar {
+  margin: 0%;
+}
+
+/* .About {
+  background-color: white;
+  /* height: 10cm; 
+  width: 10cm;
+  margin-left: 40%;
+  margin-right: 40%;
+} */
+
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+}

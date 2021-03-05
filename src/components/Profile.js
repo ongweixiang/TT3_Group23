@@ -22,8 +22,7 @@ export default class Profile extends Component {
     };
 
     ApiService.login(
-      props.location.state.username,
-      props.location.state.password
+      "Group23", "M4suvRLLksbz4rG"
     )
       .then((response) => response.json())
       .then((response) => {
@@ -36,6 +35,15 @@ export default class Profile extends Component {
           phoneNumber: response.phoneNumber,
         });
       });
+    // ApiService.login("Group23", "M4suvRLLksbz4rG")
+    //   .then((response)=> {
+    //       if(response.ok){
+    //         console.log(response);
+    //         localStorage.setItem("login_JSON",JSON.stringify(response.json()));
+    //         props.history.push("/profile");
+    //         window.location.reload();
+    //       }
+    //     })
   }
 
   render() {

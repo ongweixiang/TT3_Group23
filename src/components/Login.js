@@ -36,32 +36,54 @@ const Login = (props) => {
     setPassword(password);
   };
 
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+
+  //   setMessage("");
+  //   setLoading(true);
+  //   form.current.validateAll();
+
+  //   if (checkBtn.current.context._errors.length === 0) {
+  //     ApiService.login(username, password)
+  //     .then((response)=> {
+  //         if(response.ok){
+  //           console.log(response);
+  //           localStorage.setItem("login_JSON",JSON.stringify(response.json()));
+  //           props.history.push("/profile");
+  //           window.location.reload();
+  //         }
+  //         else{
+  //           const resMessage= response.json().body
+  //           setLoading(false)
+  //           setMessage(resMessage)
+  //         }
+  //       }
+  //     ) 
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // };
   const handleLogin = (e) => {
+    const data = {
+      username: "Group23",
+      password: "M4suvRLLksbz4rG",
+    };
     e.preventDefault();
-
-    setMessage("");
-    setLoading(true);
-    form.current.validateAll();
-
-    if (checkBtn.current.context._errors.length === 0) {
-      ApiService.login(username, password)
-      .then((response)=> {
-          if(response.ok){
-            console.log(response);
-            localStorage.setItem("login_JSON",JSON.stringify(response.json()));
-            props.history.push("/profile");
-            window.location.reload();
-          }
-          else{
-            const resMessage= response.json().body
-            setLoading(false)
-            setMessage(resMessage)
-          }
-        }
-      ) 
+    if (username === data.username && password === data.password) {
+      props.history.push({
+        pathname: "/profile",
+        state: { username, password },
+      });
+      window.location.reload();
     } else {
-      setLoading(false);
+      props.history.push("/wrong");
+      window.location.reload();
+      return;
     }
+    // console.log(username);
+    // console.log(password);
+    // console.log(data.username);
+    // console.log(data.password);
   };
   
 

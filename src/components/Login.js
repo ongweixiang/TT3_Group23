@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, Component} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Link, Router } from "react-router-dom";
 import DBSLogo from "./Logo_Only.png";
-
 import { isEmail } from "validator";
+import AuthService from "./Services";
 
 const required = (value) => {
   if (!value) {
@@ -36,12 +36,43 @@ const Login = (props) => {
     setPassword(password);
   };
 
-  const handleLogin = (e) => {
-    const data = {
-      username: "Test123",
-      password: "123456",
-    };
+  const handleLogin =(e) => {
     e.preventDefault();
+
+    this.setState({
+      message: "",
+      loading: true
+    });
+
+    this.form.validateAll();
+
+    if (this.checkBtn.context._errors.length === 0) {
+      AuthService.login(this.state.username, this.state.password).then(
+        () => {
+          this.props.history.push("/profile");
+          window.location.reload();
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          this.setState({
+            loading: false,
+            message: resMessage
+          });
+        }
+      );
+    } else {
+      this.setState({
+        loading: false
+      });
+    }
+  }
+    /*
     if (username === data.username && password === data.password) {
       props.history.push("/profile");
       window.location.reload();
@@ -50,11 +81,12 @@ const Login = (props) => {
       window.location.reload();
       return;
     }
+    */
     // console.log(username);
     // console.log(password);
     // console.log(data.username);
     // console.log(data.password);
-  };
+  
 
   return (
     <div className="col-md-12">

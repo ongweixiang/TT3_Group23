@@ -38,12 +38,15 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     const data = {
-      username: "Test123",
-      password: "123456",
+      username: "Group23",
+      password: "M4suvRLLksbz4rG",
     };
     e.preventDefault();
     if (username === data.username && password === data.password) {
-      props.history.push("/profile");
+      props.history.push({
+        pathname: "/profile",
+        state: { username, password },
+      });
       window.location.reload();
     } else {
       props.history.push("/wrong");

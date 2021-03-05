@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, Component} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Link, Router } from "react-router-dom";
 import DBSLogo from "./Logo_Only.png";
-
 import { isEmail } from "validator";
+import ApiService from "../services/apiServices";
 
 const required = (value) => {
   if (!value) {
@@ -37,24 +37,42 @@ const Login = (props) => {
   };
 
   const handleLogin = (e) => {
-    const data = {
-      username: "Test123",
-      password: "123456",
-    };
     e.preventDefault();
-    if (username === data.username && password === data.password) {
-      props.history.push("/profile");
-      window.location.reload();
+
+    setMessage("");
+    setLoading(true);
+    form.current.validateAll();
+
+    if (checkBtn.current.context._errors.length === 0) {
+      ApiService.login(username, password)
+      .then((response)=> {
+        response.json().then((response)=>{
+          console.log(response);
+          localStorage.setItem("login_JSON",JSON.stringify(response))
+        })
+      })
+      .then(
+        () => {  
+          props.history.push("/profile");
+          window.location.reload();
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setLoading(false);
+          setMessage(resMessage);
+        }
+      );
     } else {
-      props.history.push("/wrong");
-      window.location.reload();
-      return;
+      setLoading(false);
     }
-    // console.log(username);
-    // console.log(password);
-    // console.log(data.username);
-    // console.log(data.password);
   };
+  
 
   return (
     <div className="col-md-12">

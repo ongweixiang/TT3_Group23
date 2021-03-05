@@ -11,18 +11,6 @@ class ApiService {
     })
   }
 
-  alt_login =async(username, password)=>{
-    const data= await fetch(API_URL + 'login',  {
-      method: 'POST',
-      headers: { 'x-api-key':'dmH5MjtLBu6cJ9QJ3BfvA3mFmin2LNf72SHFyxev' },
-      body: {username: username, password: password}
-    })
-    .then((response)=> response.json())
-    .then((response)=> {
-      console.log(response);
-    })
-  }
-
   userBalance(accountKey) {
     return fetch(API_URL + 'balance',  {
         method: 'POST',

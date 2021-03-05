@@ -46,28 +46,19 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       ApiService.login(username, password)
       .then((response)=> {
-        response.json().then((response)=>{
-          console.log(response);
-          localStorage.setItem("login_JSON",JSON.stringify(response))
-        })
-      })
-      .then(
-        () => {  
-          props.history.push("/profile");
-          window.location.reload();
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setLoading(false);
-          setMessage(resMessage);
+          if(response.ok){
+            console.log(response);
+            localStorage.setItem("login_JSON",JSON.stringify(response.json()));
+            props.history.push("/profile");
+            window.location.reload();
+          }
+          else{
+            const resMessage= response.json().body
+            setLoading(false)
+            setMessage(resMessage)
+          }
         }
-      );
+      ) 
     } else {
       setLoading(false);
     }

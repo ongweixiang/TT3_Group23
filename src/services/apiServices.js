@@ -1,6 +1,5 @@
-import axios from 'axios';
-
-const API_URL = 'https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/';
+const API_URL =
+  "https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/";
 
 class ApiService {
   login(username, password) {
@@ -15,7 +14,7 @@ class ApiService {
     return fetch(API_URL + 'balance',  {
         method: 'POST',
         headers: { 'x-api-key':'dmH5MjtLBu6cJ9QJ3BfvA3mFmin2LNf72SHFyxev' },
-        body: {accountKey: accountKey}
+        body: JSON.stringify({accountKey: accountKey})
     })
   }
 
@@ -37,15 +36,15 @@ class ApiService {
     return fetch(API_URL + 'transactions/view',  {
         method: 'POST',
         headers: { 'x-api-key':'dmH5MjtLBu6cJ9QJ3BfvA3mFmin2LNf72SHFyxev' },
-        body: {accountKey: accountKey}
+        body: JSON.stringify({accountKey: accountKey}),
     })
   }
-  
+
   buyOrSell(accountKey, orderType, assetAmount) {
-    return fetch(API_URL + 'transactions/view',  {
+    return fetch(API_URL + 'transactions/add',  {
         method: 'POST',
         headers: { 'x-api-key':'dmH5MjtLBu6cJ9QJ3BfvA3mFmin2LNf72SHFyxev' },
-        body: {accountKey: accountKey, orderType: orderType, assetAmount: assetAmount}
+        body: JSON.stringify({accountKey: accountKey, orderType: orderType, assetAmount: assetAmount})
     })
   }
 

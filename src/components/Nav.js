@@ -26,6 +26,12 @@ function Nav() {
           <Link style={navstyle} to="/about">
             <li>About</li>
           </Link>
+          <Link style={navstyle} to="/transactions">
+            <li>Transactions</li>
+          </Link>
+          <Link style={navstyle} to="/buySell">
+            <li>Buy/Sell</li>
+          </Link>
           {/* <Link style={navstyle} to="/shop">
             <li>Shop</li>
           </Link> */}
